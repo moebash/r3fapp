@@ -48,7 +48,7 @@ function usePlayerControls() {
 }
 
 export default function App() {
- const playerref = useRef()
+
  const [socketClient, setSocketClient] = useState(null)
  const [clients, setClients] = useState({})
 
