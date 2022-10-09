@@ -140,7 +140,7 @@ function Axe({position, rotation, ...props}) {
 }
 
 function Player({socket, ...props}) {
-  const [domNode, setDomNode] = useState(null);
+ 
   const axe = useRef()
   const [ref, api] = useSphere(() => ({ mass: 1, type: "Dynamic", position: [0, 10, 0], ...props }))
   const { forward, backward, left, right, jump } = usePlayerControls()
@@ -148,38 +148,31 @@ function Player({socket, ...props}) {
   
   const velocity = useRef([0, 0, 0])
 
-
-  useEffect((state) => {
-   
-    const axe = useCallback(val => {
-      if (val === null) { 
-        console.log('unn')
+  const memoizedCallback = useCallback(
+    (val) => {
+      if (val === null ) {
+        console.log('unmounted')
       } else {
-        camera.rotation.order = 'YXZ';
-        const rotation =  axe.current.rotation
-        const position = camera.position
-          const { id } = socket
-          const posArry = []
-          const rotArry = []
-          position.toArray(posArry)
-          rotation.toArray(rotArry)
-          
-     
-  
-          socket.emit('move', {
-              id,
-              rotation: rotArry,
-              position: posArry,
-          }) 
-      }
-    }, []); // adjust deps
-   
-    //
-
+      camera.rotation.order = 'YXZ';
+      const rotation =  axe.current.rotation
+      const position = camera.position
+        const { id } = socket
+        const posArry = []
+        const rotArry = []
+        position.toArray(posArry)
+        rotation.toArray(rotArry)
+        
    
 
+        socket.emit('move', {
+            id,
+            rotation: rotArry,
+            position: posArry,
+        }) }
+    },
+    [axe, socket],
+  );
 
-  }, [axe, socket])
  
   useFrame((state) => {
     
