@@ -136,7 +136,7 @@ function Axe({position, rotation, ...props}) {
       <group rotation={[0, Math.PI / 1.8, -0.3]} scale={0.5}>
       <mesh>
   <boxGeometry />
-  <meshPhongMaterial color="#ff0000" opacity={0.1} transparent />
+  <meshPhongMaterial color="#ff0000" opacity={0} transparent />
 </mesh>
       </group>
     </group>
