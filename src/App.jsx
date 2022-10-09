@@ -48,7 +48,7 @@ function usePlayerControls() {
 }
 
 export default function App() {
-  
+
  const [socketClient, setSocketClient] = useState(null)
  const [clients, setClients] = useState({})
 
@@ -140,13 +140,46 @@ function Axe({position, rotation, ...props}) {
 }
 
 function Player({socket, ...props}) {
-
+  const [domNode, setDomNode] = useState(null);
   const axe = useRef()
   const [ref, api] = useSphere(() => ({ mass: 1, type: "Dynamic", position: [0, 10, 0], ...props }))
   const { forward, backward, left, right, jump } = usePlayerControls()
   const { camera } = useThree()
   
   const velocity = useRef([0, 0, 0])
+
+
+  useEffect((state) => {
+   
+    const axe = useCallback(val => {
+      if (val === null) { 
+        console.log('unn')
+      } else {
+        camera.rotation.order = 'YXZ';
+        const rotation =  axe.current.rotation
+        const position = camera.position
+          const { id } = socket
+          const posArry = []
+          const rotArry = []
+          position.toArray(posArry)
+          rotation.toArray(rotArry)
+          
+     
+  
+          socket.emit('move', {
+              id,
+              rotation: rotArry,
+              position: posArry,
+          }) 
+      }
+    }, []); // adjust deps
+   
+    //
+
+   
+
+
+  }, [axe, socket])
  
   useFrame((state) => {
     
@@ -165,7 +198,6 @@ function Player({socket, ...props}) {
 
     api.velocity.set(direction.x, velocity.current[1], direction.z)
     if (jump && Math.abs(velocity.current[1].toFixed(2)) < 0.05) api.velocity.set(velocity.current[0], 10, velocity.current[2])
-    
 
         
   })
