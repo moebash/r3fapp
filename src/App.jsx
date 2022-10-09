@@ -134,8 +134,10 @@ function Axe({position, rotation, ...props}) {
   return (
     <group position={position} rotation={rotation} ref={group} dispose={null} {...props}>
       <group rotation={[0, Math.PI / 1.8, -0.3]} scale={0.5}>
-        <mesh geometry={nodes.Mesh_1001_1.geometry} material={materials.material_2} />
-        <mesh geometry={nodes.Mesh_1001_2.geometry} material={materials.material_3} />
+      <mesh>
+  <boxGeometry />
+  <meshPhongMaterial color="#ff0000" opacity={0.1} transparent />
+</mesh>
       </group>
     </group>
   )
@@ -191,8 +193,8 @@ function Player({socket, ...props}) {
   return (
     <>
       <mesh ref={ref} />
-      <group ref={axe} >
-       
+      <group ref={axe} onPointerMissed={(e) => (axe.current.children[0].rotation.x = -0.5)}>
+        <Axe position={[0.15, -0.35, 0.5]} />
       </group>
     </>
   )
