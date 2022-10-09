@@ -191,8 +191,8 @@ function Player({socket, ...props}) {
   return (
     <>
       <mesh ref={ref} />
-      <group ref={axe} onPointerMissed={(e) => (axe.current.children[0].rotation.x = -0.5)}>
-        <Axe position={[0.15, -0.35, 0.5]} />
+      <group ref={axe} >
+       
       </group>
     </>
   )
