@@ -1,12 +1,12 @@
 import * as THREE from "three"
-import { useRef, useCallback, useEffect, useState, Suspense } from "react"
+import { useRef, useEffect, useState, Suspense } from "react"
 import { Canvas, useLoader, useThree, useFrame } from "@react-three/fiber"
-import { Sky, PointerLockControls, OrbitControls, useGLTF, Text, useAnimations } from "@react-three/drei"
-import { Physics, useBox, useSphere, usePlane } from "@react-three/cannon"
-import { MeshNormalMaterial, BoxBufferGeometry } from 'three'
+import { Sky, PointerLockControls, useGLTF } from "@react-three/drei"
+import { Physics, useSphere, usePlane } from "@react-three/cannon"
+
 import { io } from 'socket.io-client'
 import { Model } from "./Emoji"
-
+import { Portalx } from "./Portal"
 import axeUrl from "./assets/axe.glb"
 import grass from "./assets/grass.jpg"
 
@@ -84,8 +84,10 @@ export default function App() {
       <Suspense fallback={null}>
       <pointLight castShadow intensity={0.8} position={[100, 100, 100]} />
       <Physics gravity={[0, -30, 0]}>
-      
-        <Ground />
+      <group rotation={[0, Math.PI, 0]} position={[0, 1, 0]}>
+          <Portalx />
+      </group>
+      <Ground />
         
        <Player socket={socketClient}/>
        {Object.keys(clients)

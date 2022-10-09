@@ -10,7 +10,7 @@ export function Model({id, ...props}) {
   const { nodes, materials } = useGLTF(emojUrl)
   return (
     <group {...props} dispose={null}>
-      <mesh geometry={nodes.smile_emoji005.geometry} material={materials.smile} rotation={[0,0.4,0]} scale={0.13} />
+      <mesh castShadow receiveShadow geometry={nodes.smile_emoji005.geometry} material={materials.smile} rotation={[0,0.4,0]} scale={0.13} />
       <Text
                 position={[0, 0.2, 0]}
                 rotation={[0,1.5,0]}

@@ -117,56 +117,19 @@ button {
   opacity: 0;
 }
 
-.pmndrs-menu {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  color: #808080;
-  padding: 40px;
-  pointer-events: none;
-  justify-content: center;
-  align-items: flex-end;
-  flex-direction: row;
-  font-size: 10px;
-  line-height: 1.5em;
+.content {
+  width: 334px;
+  height: 216px;
+  background: #f0f0f0;
+  border-radius: 3px;
+  overflow-y: auto;
+  padding: 0;
 }
 
-.pmndrs-menu.left {
-  justify-content: flex-start;
-}
-
-.pmndrs-menu.right {
-  justify-content: flex-end;
-}
-
-.pmndrs-menu > div {
-  word-wrap: none;
-  word-break: none;
-  white-space: pre;
-  padding-left: 25px;
-  padding-right: 25px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  flex-direction: column;
-}
-
-.pmndrs-menu > div b {
-  font-weight: 600;
-  color: #b0b0b0;
-}
-
-.pmndrs-menu a {
-  pointer-events: all;
-  cursor: pointer;
-  color: inherit;
-  text-decoration: none;
-}
-
-.pmndrs-menu a:hover {
-  text-decoration: underline;
-  color: inherit;
+.wrapper {
+  padding: 10px;
+  width: 668px;
+  height: 432px;
+  transform: scale(0.5);
+  transform-origin: top left;
 }
