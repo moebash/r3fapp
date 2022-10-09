@@ -8,9 +8,10 @@ import App from "./App"
 function Overlay() {
   const [ready, set] = useState(false)
   const isVisible = usePageVisibility()
+  
   return (
     <>
-    { isVisible && <App /> }
+     <App />
       <div className="dot" />
       <div className={`fullscreen bg ${ready ? "ready" : "notready"} ${ready && "clicked"}`}>
         <div className="stack">
