@@ -8,7 +8,7 @@ function Overlay() {
   const [ready, set] = useState(false)
   return (
     <>
-     { ready && <App />}
+     <App />
       <div className="dot" />
       <div className={`fullscreen bg ${ready ? "ready" : "notready"} ${ready && "clicked"}`}>
         <div className="stack">
