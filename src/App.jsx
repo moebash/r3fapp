@@ -151,7 +151,7 @@ function Player({socket, ...props}) {
   const axe = useCallback(
     (node) => {
       console.log('changed!')
-    },[axe.current.position]
+    },[axe]
   )
 
  
