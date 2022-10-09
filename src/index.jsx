@@ -8,7 +8,16 @@ function Overlay() {
   const [ready, set] = useState(false)
   return (
     <>
-     <App />
+    { 
+    document.addEventListener('visibilitychange', function (event) {
+      if (document.hidden) {
+          console.log('not visible');
+      } else {
+        <App />
+      }
+  })
+    
+    }
       <div className="dot" />
       <div className={`fullscreen bg ${ready ? "ready" : "notready"} ${ready && "clicked"}`}>
         <div className="stack">
