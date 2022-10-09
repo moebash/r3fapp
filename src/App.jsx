@@ -47,8 +47,8 @@ function usePlayerControls() {
   return movement
 }
 
-export default function App({ready, set}) {
-  const [ready, set] = useState(false)
+export default function App() {
+  
  const [socketClient, setSocketClient] = useState(null)
  const [clients, setClients] = useState({})
 
