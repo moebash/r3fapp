@@ -1,8 +1,6 @@
 {
   "type": "module",
-  "engines": {
-    "node": "6.11.1"
-  },
+ 
   "scripts": {
     "build": "vite build",
     "dev": "nodemon develop.js",
