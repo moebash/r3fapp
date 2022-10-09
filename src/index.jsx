@@ -1,23 +1,16 @@
 import { useState } from "react"
 import ReactDOM from "react-dom"
+import { usePageVisibility } from 'react-page-visibility';
 
 import "./App.css"
 import App from "./App"
 
 function Overlay() {
   const [ready, set] = useState(false)
+  const isVisible = usePageVisibility()
   return (
     <>
-    { 
-    document.addEventListener('visibilitychange', function (event) {
-      if (document.hidden) {
-          console.log('not visible');
-      } else {
-        <App />
-      }
-  })
-    
-    }
+    { isVisible && <App /> }
       <div className="dot" />
       <div className={`fullscreen bg ${ready ? "ready" : "notready"} ${ready && "clicked"}`}>
         <div className="stack">
