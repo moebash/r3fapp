@@ -5,8 +5,8 @@ import { Popover, Transition } from '@headlessui/react'
 
 export default function Example() {
   return (
-    <div className="wrapper">
-      <iframe id="frame" src="https://cineframe.vercel.app/" scrolling="yes"></iframe>
+    <div >
+      <iframe className="wrapper" id="frame" src="https://cineframe.vercel.app/" scrolling="yes"></iframe>
     </div>
   )
 }

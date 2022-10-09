@@ -48,7 +48,8 @@ function usePlayerControls() {
 }
 
 export default function App() {
-
+const [pointer, setPointer] = useState(true)
+ const pointerRef = useRef()
  const [socketClient, setSocketClient] = useState(null)
  const [clients, setClients] = useState({})
 
@@ -85,7 +86,7 @@ export default function App() {
       <pointLight castShadow intensity={0.8} position={[100, 100, 100]} />
       <Physics gravity={[0, -30, 0]}>
       <group rotation={[0, Math.PI, 0]} position={[0, 1, 0]}>
-          <Portalx />
+          <Portalx onPointerEnter={(e) => setPointer(false)} onPointerLeave={(e) => setPointer(true)}/>
       </group>
       <Ground />
         
@@ -108,7 +109,7 @@ export default function App() {
                     })}
       
       </Physics>
-    <PointerLockControls />
+    { pointer && <PointerLockControls /> }
       </Suspense>
       
     </Canvas>)
