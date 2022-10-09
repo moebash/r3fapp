@@ -86,7 +86,7 @@ const [pointer, setPointer] = useState(true)
       <pointLight castShadow intensity={0.8} position={[100, 100, 100]} />
       <Physics gravity={[0, -30, 0]}>
       <group rotation={[0, Math.PI, 0]} position={[0, 1, 0]}>
-          <Portalx onPointerEnter={(e) => setPointer(false)} onPointerLeave={(e) => setPointer(true)}/>
+          <Portalx />
       </group>
       <Ground />
         
@@ -109,7 +109,7 @@ const [pointer, setPointer] = useState(true)
                     })}
       
       </Physics>
-    { pointer && <PointerLockControls /> }
+    <PointerLockControls /> 
       </Suspense>
       
     </Canvas>)
