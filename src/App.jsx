@@ -166,7 +166,7 @@ function Player({socket, ...props}) {
 
     api.velocity.set(direction.x, velocity.current[1], direction.z)
     if (jump && Math.abs(velocity.current[1].toFixed(2)) < 0.05) api.velocity.set(velocity.current[0], 10, velocity.current[2])
-     
+    if (camera.position) {
       camera.rotation.order = 'YXZ';
       const rotation =  axe.current.rotation
       const position = camera.position
@@ -176,9 +176,7 @@ function Player({socket, ...props}) {
         position.toArray(posArry)
         rotation.toArray(rotArry)
         
-        if (axe.current) {
-   
-
+        
         socket.emit('move', {
             id,
             rotation: rotArry,
