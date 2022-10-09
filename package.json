@@ -3,8 +3,8 @@
  
   "scripts": {
     "build": "vite build",
-    "dev": "nodemon develop.js",
-    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "start": "node develop.js",
     "format": "prettier --write \"src/*.{js,jsx,json,md,ts,tsx,css}\""
   },
   "dependencies": {
