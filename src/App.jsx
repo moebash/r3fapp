@@ -47,8 +47,8 @@ function usePlayerControls() {
   return movement
 }
 
-export default function App() {
-
+export default function App({ready, set}) {
+  const [ready, set] = useState(false)
  const [socketClient, setSocketClient] = useState(null)
  const [clients, setClients] = useState({})
 
@@ -56,6 +56,7 @@ export default function App() {
      // On mount initialize the socket connection
      setSocketClient(io())
 
+     
      // Dispose gracefuly
      return () => {
          if (socketClient) socketClient.disconnect()
@@ -164,23 +165,7 @@ function Player({socket, ...props}) {
 
     api.velocity.set(direction.x, velocity.current[1], direction.z)
     if (jump && Math.abs(velocity.current[1].toFixed(2)) < 0.05) api.velocity.set(velocity.current[0], 10, velocity.current[2])
-    if ( left || right || backward || forward || jump || !jump) {  
-        camera.rotation.order = 'YXZ';
-        const rotation =  axe.current.rotation
-        const position = camera.position
-          const { id } = socket
-          const posArry = []
-          const rotArry = []
-          position.toArray(posArry)
-          rotation.toArray(rotArry)
-          
-     
-  
-          socket.emit('move', {
-              id,
-              rotation: rotArry,
-              position: posArry,
-          }) }
+    
 
         
   })
