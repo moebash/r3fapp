@@ -6,7 +6,7 @@ import { Popover, Transition } from '@headlessui/react'
 export default function Example() {
   return (
     <div >
-      <iframe id="frame" src="https://activegravity.netlify.app" height={400} width={900}></iframe>
+      <iframe id="frame" src="https://docs.pmnd.rs/" width="100%" height="100%"></iframe>
     </div>
   )
 }

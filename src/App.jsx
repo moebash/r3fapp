@@ -1,14 +1,14 @@
 import * as THREE from "three"
 import { useRef, useEffect, useState, Suspense } from "react"
 import { Canvas, useLoader, useThree, useFrame } from "@react-three/fiber"
-import { Sky, PointerLockControls, useGLTF } from "@react-three/drei"
+import { Sky, PointerLockControls, useGLTF, Stars, Stats } from "@react-three/drei"
 import { Physics, useSphere, usePlane } from "@react-three/cannon"
-
+import { World } from "./World"
 import { io } from 'socket.io-client'
 import { Model } from "./Emoji"
 import { Portalx } from "./Portal"
 import axeUrl from "./assets/axe.glb"
-import grass from "./assets/grass.jpg"
+import grass from "./assets/marble.jpg"
 
 
 const SPEED = 5
@@ -75,19 +75,21 @@ const [pointer, setPointer] = useState(true)
 
   return (
     socketClient && ( <Canvas
+    frameloop="demand"
       shadows
       gl={{ alpha: false }}
       camera={{ fov: 45 }}
       raycaster={{ computeOffsets: (e) => ({ offsetX: e.target.width / 2, offsetY: e.target.height / 2 }) }}>
-      <Sky sunPosition={[100, 20, 100]} />
-    
-      <ambientLight intensity={0.3} />
+      <Sky  sunPosition={[100, 20, 100]} inclination={2} azimuth={0.25}/>
+      <fog attach="fog" args={['#aab9c0', 30, 100]}  />
+      <Stars radius={100} depth={50} count={1000} factor={4} saturation={1} fade speed={1} />
+      <ambientLight intensity={0.7} />
+      <Stats/>
       <Suspense fallback={null}>
-      <pointLight castShadow intensity={0.8} position={[100, 100, 100]} />
+      <pointLight castShadow intensity={1} position={[100, 10, 100]} color={'#9966a3'} />
+
       <Physics gravity={[0, -30, 0]}>
-      <group rotation={[0, Math.PI, 0]} position={[0, 1, 0]}>
-          <Portalx />
-      </group>
+      <World position={[0,0,-16]}/>
       <Ground />
         
        <Player socket={socketClient}/>
@@ -123,7 +125,7 @@ function Ground(props) {
   return (
     <mesh ref={ref} receiveShadow>
       <planeGeometry args={[1000, 1000]} />
-      <meshStandardMaterial map={texture} map-repeat={[240, 240]} color="green" />
+      <meshStandardMaterial map={texture} map-repeat={[250, 250]}  />
     </mesh>
   )
 }

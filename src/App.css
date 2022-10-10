@@ -119,19 +119,19 @@ button {
 }
 
 .content {
-  width: 334px;
-  height: 216px;
-  background: #f0f0f0;
+  width: 100%;
+  height: 100%;
+  background: #232121;
   border-radius: 3px;
   overflow-y: auto;
   padding: 0;
 }
 
 .wrapper {
-  padding: 10px;
+  
   width: 100%;
   height: 100%;
  
-  transform-origin: top left;
+  
 }
 
