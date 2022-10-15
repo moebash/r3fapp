@@ -1,7 +1,7 @@
 import * as THREE from "three"
 import { useRef, useEffect, useState, Suspense } from "react"
 import { Canvas, useLoader, useThree, useFrame } from "@react-three/fiber"
-import { Sky, PointerLockControls, useGLTF, Stars, Stats } from "@react-three/drei"
+import { Sky, PointerLockControls, useGLTF, Stars, Stats, MeshReflectorMaterial } from "@react-three/drei"
 import { Physics, useSphere, usePlane } from "@react-three/cannon"
 import { World } from "./World"
 import { io } from 'socket.io-client'
@@ -9,10 +9,11 @@ import { Model } from "./Emoji"
 import { Portalx } from "./Portal"
 import axeUrl from "./assets/axe.glb"
 import grass from "./assets/marble.jpg"
+import { MeshStandardMaterial } from "three"
 
 
 const SPEED = 5
-const keys = { KeyW: "forward", KeyS: "backward", KeyA: "left", KeyD: "right", Space: "jump" }
+const keys = { KeyW: "forward", KeyS: "backward", KeyA: "left", KeyD: "right" }
 const moveFieldByKey = (key) => keys[key]
 const direction = new THREE.Vector3()
 const frontVector = new THREE.Vector3()
@@ -36,7 +37,7 @@ const UserWrapper = ({ position, rotation, id }) => {
 
 
 function usePlayerControls() {
-  const [movement, setMovement] = useState({ forward: false, backward: false, left: false, right: false, jump: false })
+  const [movement, setMovement] = useState({ forward: false, backward: false, left: false, right: false })
   useEffect(() => {
     const handleKeyDown = (e) => setMovement((m) => ({ ...m, [moveFieldByKey(e.code)]: true }))
     const handleKeyUp = (e) => setMovement((m) => ({ ...m, [moveFieldByKey(e.code)]: false }))
@@ -81,7 +82,7 @@ const [pointer, setPointer] = useState(true)
       camera={{ fov: 45 }}
       raycaster={{ computeOffsets: (e) => ({ offsetX: e.target.width / 2, offsetY: e.target.height / 2 }) }}>
       <Sky  sunPosition={[100, 20, 100]} inclination={2} azimuth={0.25}/>
-      <fog attach="fog" args={['#aab9c0', 30, 100]}  />
+     
       <Stars radius={100} depth={50} count={1000} factor={4} saturation={1} fade speed={1} />
       <ambientLight intensity={0.7} />
       <Stats/>
@@ -125,7 +126,7 @@ function Ground(props) {
   return (
     <mesh ref={ref} receiveShadow>
       <planeGeometry args={[1000, 1000]} />
-      <meshStandardMaterial map={texture} map-repeat={[250, 250]}  />
+      <meshStandardMaterial map={texture} map-repeat={[5, 5]}  />
     </mesh>
   )
 }
@@ -150,7 +151,7 @@ function Player({socket, ...props}) {
   
   const axe = useRef()
   const [ref, api] = useSphere(() => ({ mass: 1, type: "Dynamic", position: [0, 10, 0], ...props }))
-  const { forward, backward, left, right, jump } = usePlayerControls()
+  const { forward, backward, left, right } = usePlayerControls()
   const { camera } = useThree()
   
   const velocity = useRef([0, 0, 0])
@@ -172,7 +173,7 @@ function Player({socket, ...props}) {
     axe.current.position.copy(camera.position).add(camera.getWorldDirection(rotation).multiplyScalar(1))
 
     api.velocity.set(direction.x, velocity.current[1], direction.z)
-    if (jump && Math.abs(velocity.current[1].toFixed(2)) < 0.05) api.velocity.set(velocity.current[0], 10, velocity.current[2])
+    
     if (camera.position) {
       camera.rotation.order = 'YXZ';
       const rotation =  axe.current.rotation

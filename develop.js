@@ -12,7 +12,7 @@ const router = Router()
 const vite = await createServer({
     configFile: false,
     server: {
-        middlewareMode: 'html',
+        middlewareMode: 'true',
     },
     ...viteConfig,
 })
